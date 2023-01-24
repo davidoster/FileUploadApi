@@ -16,6 +16,7 @@ namespace FileUploadApi.Services
         {
             this.socialDbContext = socialDbContext;
             this.environment = environment;
+            socialDbContext.Database.EnsureCreated();
         }
 
         public async Task<PostResponse> CreatePostAsync(PostRequest postRequest)
@@ -51,6 +52,17 @@ namespace FileUploadApi.Services
 
             return new PostResponse { Success = true, Post = postModel };
 
+        }
+
+        public async Task<FileStream> GetPostImageAsync(int id)
+        {
+            // Step 1. read from db
+            var post = await socialDbContext.Post.FindAsync(id);
+            // Step 2. create file stream
+            //var fileStream = new FileStream(post.Imagepath, FileMode.Open);
+            var image = File.OpenRead(post.Imagepath);
+            // Step 3. return file stream
+            return image;
         }
 
         public async Task SavePostImageAsync(PostRequest postRequest)

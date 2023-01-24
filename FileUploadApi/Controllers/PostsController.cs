@@ -19,6 +19,14 @@ namespace FileUploadApi.Controllers
             this.postService = postService;
         }
 
+        [HttpGet]
+        // https://localhost:7129/posts/images/1
+        [Route("/images/{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return File(await postService.GetPostImageAsync(id), "image/jpg");
+        }
+
         [HttpPost]
         [Route("")]
         [RequestSizeLimit(5 * 1024 * 1024)]

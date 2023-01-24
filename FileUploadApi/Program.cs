@@ -25,12 +25,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<SocialDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SocialDbConnectionString")));
+builder.Services.AddDbContext<SocialDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SocialDbConnectionString2")));
 
 builder.Services.AddTransient<IPostService, PostService>();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
